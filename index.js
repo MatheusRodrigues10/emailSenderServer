@@ -5,7 +5,7 @@ const app = express();
 
 //primeira rota
 app.get('/', (req, res) => {
- res.send({ hi: 'there' });
+ res.send({ hi: 'olá' });
 });
 
 //no caso o site de deploy cria essas variaveis de ambiente para nois (ocultas)
