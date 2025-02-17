@@ -1,15 +1,17 @@
 import express from 'express';
+import passport from './services/passport.js';
+import authRoutes from './routes/authRoutes.js';
 
-//um so app que usa as funções do express
 const app = express();
 
-//primeira rota
-app.get('/', (req, res) => {
- res.send({ hi: 'olá' });
-});
+//inicializa o passport
+app.use(passport.initialize());
 
-//no caso o site de deploy cria essas variaveis de ambiente para nois (ocultas)
+//usa o middlewere para todas as rotas de autenticação
+app.use('/auth', authRoutes);
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log("Servidor rodando na porta 5000")
 });
+
