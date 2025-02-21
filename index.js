@@ -1,11 +1,32 @@
 import express from 'express';
-import passport from './services/passport.js';
 import authRoutes from './routes/authRoutes.js';
+import mongoose from 'mongoose';
+import cookieSession from 'cookie-session';
+import passport from 'passport';
+//inicializa modelo.
+import './models/User.js';
+//inicialiaza o passport
+import './services/passport.js'
+//import de variaveis sensiveis
+import { mongoURI, cookieKey } from './config/keys.js';
+
+
+//conexão ao mongoDb com moongose
+mongoose.connect(mongoURI);
 
 const app = express();
 
-//inicializa o passport
+//configurar cookies
+app.use(
+    cookieSession({
+        //maximo de dias antes de expirar (no caso 30)
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        //key para encriptografar cookie
+        keys: [cookieKey]
+    })
+);
 app.use(passport.initialize());
+app.use(passport.session());
 
 //usa o middlewere para todas as rotas de autenticação
 app.use('/auth', authRoutes);
