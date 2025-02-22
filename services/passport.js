@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 //pegamos apenas o metodo
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 //variaveis de ambiente
-import keys from './config/keys.js';
+import keys from '../config/keys.js';
 
 const User = mongoose.model('users');
 
