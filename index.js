@@ -12,7 +12,7 @@ import keys from './config/keys.js';
 
 
 //conexão ao mongoDb com moongose
-mongoose.connect(mongoURI);
+mongoose.connect(keys.mongoURI);
 
 const app = express();
 
