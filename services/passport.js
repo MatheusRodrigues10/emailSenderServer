@@ -3,7 +3,8 @@ import mongoose from 'mongoose';
 
 //pegamos apenas o metodo
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
-import { googleClientID, googleClientSecret } from '../config/keys.js';
+//variaveis de ambiente
+import keys from './config/keys.js';
 
 const User = mongoose.model('users');
 
@@ -29,8 +30,8 @@ passport.deserializeUser(async (id, done) => {
 passport.use(
     new GoogleStrategy({
         // Chaves da API do Google OAuth
-        clientID: googleClientID,
-        clientSecret: googleClientSecret,
+        clientID: keys.googleClientID,
+        clientSecret: keys.googleClientSecret,
         // Rota de callback para onde o Google redireciona após autenticação
         callbackURL: '/auth/google/callback'
     }, 

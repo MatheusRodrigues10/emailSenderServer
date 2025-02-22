@@ -8,7 +8,7 @@ import './models/User.js';
 //inicialiaza o passport
 import './services/passport.js'
 //import de variaveis sensiveis
-import { mongoURI, cookieKey } from './config/keys.js';
+import keys from './config/keys.js';
 
 
 //conexão ao mongoDb com moongose
@@ -22,7 +22,7 @@ app.use(
         //maximo de dias antes de expirar (no caso 30)
         maxAge: 30 * 24 * 60 * 60 * 1000,
         //key para encriptografar cookie
-        keys: [cookieKey]
+        keys: [keys.cookieKey]
     })
 );
 app.use(passport.initialize());

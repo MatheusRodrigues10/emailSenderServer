@@ -1,7 +1,8 @@
-import dotenv from 'dotenv';
-dotenv.config();
+import devKeys from "./dev.js";
+import prodKeys from "./prod.js";
 
-export const googleClientID = process.env.GOOGLE_CLIENT_ID;
-export const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET;
-export const mongoURI = process.env.MONGO_URI;
-export const cookieKey = process.env.COOKIE_KEY;
+const keys = process.env.NODE_ENV === "production"
+  ? prodKeys
+  : devKeys;
+
+export default keys;
