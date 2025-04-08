@@ -1,19 +1,45 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+import { IUser } from "../../types/User";
 
-const initialState = {
-    value: 0
+interface AuthState {
+  user: IUser | null;
+  loading: boolean;
 }
 
-const authSlice = createSlice({
-    name: 'auth',
-    initialState,
-    reducers: {
-      increment: (state) => {
-        state.value += 1;
-      }
-    }
-})
+const initialState: AuthState = {
+  user: null,
+  loading: false,
+};
 
-export const { increment } = authSlice.actions;
+//busca os dados do usuário atual
+export const fetchUsers = createAsyncThunk<IUser>(
+  "auth/fetchUsers",
+  async () => {
+    const response = await axios.get("auth/api/current/user");
+    return response.data;
+  }
+);
+
+const authSlice = createSlice({
+  name: "auth",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchUsers.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchUsers.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+      })
+      .addCase(fetchUsers.rejected, (state, action) => {
+        state.loading = false;
+      });
+  },
+});
+
+export const {} = authSlice.actions;
 
 export default authSlice.reducer;
