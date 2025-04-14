@@ -3,12 +3,12 @@ import axios from "axios";
 import { IUser } from "../../types/User";
 
 interface AuthState {
-  user: IUser | null;
+  user: IUser | false;
   loading: boolean;
 }
 
 const initialState: AuthState = {
-  user: null,
+  user: false,
   loading: false,
 };
 
@@ -16,8 +16,10 @@ const initialState: AuthState = {
 export const fetchUsers = createAsyncThunk<IUser>(
   "auth/fetchUsers",
   async () => {
-    const response = await axios.get("auth/api/current/user");
-    return response.data;
+    const response = await axios.get("auth/api/current_user");
+
+    console.log("Dados da resposta (response.data):", response.data);
+    return response.data || false;
   }
 );
 

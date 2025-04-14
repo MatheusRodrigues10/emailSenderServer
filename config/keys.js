@@ -9,9 +9,11 @@ if (process.env.NODE_ENV === "production") {
     // Se estiver em desenvolvimento, tente carregar `dev.js`
     keys = await import("./dev.js").then((module) => module.default);
   } catch (error) {
-    console.error("Arquivo dev.js não encontrado! Certifique-se de que ele existe no ambiente de desenvolvimento.");
+    console.error(
+      "Arquivo dev.js não encontrado! Certifique-se de que ele existe no ambiente de desenvolvimento."
+    );
   }
-};
+}
 
 /* O .then((module) => module.default) é necessário porque import() em ESM (ECMAScript Modules) retorna um objeto de módulo, e queremos pegar apenas o export default desse módulo.
     ele retornaria algo como se estivesse sem:
