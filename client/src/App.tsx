@@ -1,21 +1,25 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Header from "./components/Header";
+import LoadingScreen from "./components/LoadingScreen";
 
 // Pages
 import DashBoard from "./pages/Dashboard";
 import Landing from "./pages/Landing";
 import SurveyNew from "./pages/SurveyNew";
 import { fetchUsers } from "./redux/features/authSlice";
-import { AppDispatch } from "./redux/store";
+import { AppDispatch, RootState } from "./redux/store";
 
 const App = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const loading = useSelector((state: RootState) => state.auth.loading);
 
   useEffect(() => {
     dispatch(fetchUsers());
   }, [dispatch]);
+
+  if (loading) return <LoadingScreen />;
 
   return (
     <BrowserRouter>

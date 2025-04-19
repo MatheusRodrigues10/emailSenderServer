@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const { user } = useSelector((state: RootState) => state.auth);
@@ -21,24 +22,24 @@ const Header = () => {
 
         {user && (
           <div className="hidden sm:flex gap-6 items-center">
-            <a
-              href="/"
+            <Link
+              to="/"
               className="text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white dark:hover:bg-gray-700 md:dark:hover:bg-transparent px-3 py-2"
             >
               Início
-            </a>
-            <a
-              href="/painel"
+            </Link>
+            <Link
+              to="/surveys"
               className="text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white dark:hover:bg-gray-700 md:dark:hover:bg-transparent px-3 py-2"
             >
               Painel
-            </a>
-            <a
-              href="/pesquisa/nova"
+            </Link>
+            <Link
+              to="/surveys/new"
               className="text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white dark:hover:bg-gray-700 md:dark:hover:bg-transparent px-3 py-2"
             >
               Nova pesquisa
-            </a>
+            </Link>
           </div>
         )}
 
@@ -90,24 +91,24 @@ const Header = () => {
 
       {menuOpen && user && (
         <div className="sm:hidden flex flex-col gap-2 p-4 bg-gray-50 border-t border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-          <a
-            href="/"
+          <Link
+            to="/"
             className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
           >
             Início
-          </a>
-          <a
-            href="/painel"
+          </Link>
+          <Link
+            to="/surveys"
             className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
           >
             Painel
-          </a>
-          <a
-            href="/pesquisa/nova"
+          </Link>
+          <Link
+            to="/surveys/new"
             className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
           >
             Nova pesquisa
-          </a>
+          </Link>
         </div>
       )}
     </header>

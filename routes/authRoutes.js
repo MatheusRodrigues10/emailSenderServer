@@ -1,5 +1,6 @@
 import express from "express";
 import passport from "passport";
+import keys from "../config/keys.js";
 
 const router = express.Router();
 
@@ -12,14 +13,15 @@ router.get(
 );
 
 //callback pós autenticcação
-router.get("/google/callback", passport.authenticate("google"));
+router.get("/google/callback", passport.authenticate("google"), (_, res) => {
+  res.redirect(`${keys.CLIENT_URL}/surveys`);
+});
 
 //desloga o usuário
 router.get("/api/logout", (req, res) => {
   // Remove a sessão do usuário
   req.logout();
-  //prova ao usuário que ele não está mais logado
-  res.send(req.user);
+  res.redirect("/"); //envia o user pora pogina inicial
 });
 
 //rota para teste de requisição
