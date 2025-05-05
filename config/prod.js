@@ -5,6 +5,8 @@ const prodKeys = {
   mongoURI: process.env.MONGO_URI,
   cookieKey: process.env.COOKIE_KEY,
   CLIENT_URL: "",
+  stripePublishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
+  stripeSecretKey: process.env.STRIPLE_SECRET_KEY,
 };
 
 export default prodKeys;
