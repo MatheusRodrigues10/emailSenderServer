@@ -41,21 +41,25 @@ const authSlice = createSlice({
     builder
       .addCase(fetchUsers.pending, (state) => {
         state.loading = true;
+        //todo Adicionar mensagem que está carregando
+        //todo Criar estado para e adicionar a component/loadingScreen.tsx
       })
       .addCase(fetchUsers.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
+        //todo Remover mensagem da loadingScreen
       })
       .addCase(fetchUsers.rejected, (state, action) => {
         state.loading = false;
       })
       .addCase(handleToken.pending, (state) => {
         state.loading = true;
+        //todo Adicionar mensagem que está processando pagamento
+        //todo Criar estado para e adicionar a component/loadingScreen.tsx
       })
       .addCase(handleToken.fulfilled, (state) => {
         state.loading = false;
-        // Você pode atualizar algo aqui se necessário
-        // Ex: state.user.credits += x; se for retornado isso
+        //todo Remover mensagem da loadingScreen
       })
       .addCase(handleToken.rejected, (state) => {
         state.loading = false;
