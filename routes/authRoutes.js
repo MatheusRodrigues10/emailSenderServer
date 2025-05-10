@@ -14,7 +14,7 @@ router.get(
 
 //callback pós autenticcação
 router.get("/google/callback", passport.authenticate("google"), (_, res) => {
-  res.redirect(`${keys.CLIENT_URL}/surveys`);
+  res.redirect("/surveys");
 });
 
 //desloga o usuário

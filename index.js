@@ -2,44 +2,54 @@ import express from "express";
 import mongoose from "mongoose";
 import cookieSession from "cookie-session";
 import passport from "passport";
+import path from "path";
+import { fileURLToPath } from "url";
+
 //inicializa modelo.
 import "./models/User.js";
-//inicialiaza o passport
+//inicializa o passport
 import "./services/passport.js";
-//import de variaveis sensiveis
+//import de variáveis sensíveis
 import keys from "./config/keys.js";
 
 //import de rotas
 import billingRoutes from "./routes/billingRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 
-//conexão ao mongoDb com moongose
+//conexão ao MongoDB com mongoose
 mongoose.connect(keys.mongoURI);
 
 const app = express();
 app.use(express.json());
 
-//configurar cookies
 app.use(
   cookieSession({
-    //maximo de dias antes de expirar (no caso 30)
     maxAge: 30 * 24 * 60 * 60 * 1000,
-    //key para encriptografar cookie
     keys: [keys.cookieKey],
   })
 );
 
-//inicia o passport e usa o express-session
 app.use(passport.initialize());
 app.use(passport.session());
 
-//rotas de autenticação
+// rotas da aplicação
 app.use("/auth", authRoutes);
-
-//rotas de pagamento
 app.use("/pay", billingRoutes);
+
+// Corrige o __dirname para ambiente Windows (sem barra inicial)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// arquivos estáticos da build do Vite
+app.use(express.static(path.join(__dirname, "client", "dist")));
+
+// fallback SPA
+app.get("*", (req, res) => {
+  const indexPath = path.join(__dirname, "client", "dist", "index.html");
+  res.sendFile(indexPath);
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log("Servidor rodando na porta 5000");
+  console.log(`Servidor rodando na porta ${PORT}`);
 });

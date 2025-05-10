@@ -7,36 +7,36 @@ const Header = () => {
   const { user } = useSelector((state: RootState) => state.auth);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
+  const toggleMenu = () => setMenuOpen(!menuOpen);
 
   return (
-    <header className="bg-white border-gray-200 dark:bg-gray-900">
-      <nav className="max-w-screen-xl w-full mx-auto px-4 flex flex-wrap items-center justify-between py-4">
-        <div className="flex items-center space-x-3 rtl:space-x-reverse">
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+    <header className="bg-white border-b border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+      <nav className="max-w-screen-xl mx-auto px-4 py-4 flex items-center justify-between">
+        {/* ESQUERDA: LOGO */}
+        <div className="flex items-center">
+          <span className="text-2xl font-semibold text-gray-900 dark:text-white">
             Reativa
           </span>
         </div>
 
+        {/* CENTRO: LINKS */}
         {user && (
-          <div className="hidden sm:flex gap-4 items-center">
+          <div className="hidden sm:flex gap-4 items-center absolute left-1/2 -translate-x-1/2">
             <Link
               to="/"
-              className="text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white dark:hover:bg-gray-700 md:dark:hover:bg-transparent px-3 py-2"
+              className="text-gray-900 rounded-sm hover:bg-gray-100 md:hover:text-white-700 dark:text-white dark:hover:bg-gray-700 px-3 py-2"
             >
               Início
             </Link>
             <Link
               to="/surveys"
-              className="text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white dark:hover:bg-gray-700 md:dark:hover:bg-transparent px-3 py-2"
+              className="text-gray-900 rounded-sm hover:bg-gray-100 md:hover:text-white-700 dark:text-white dark:hover:bg-gray-700 px-3 py-2"
             >
               Painel
             </Link>
             <Link
               to="/surveys/new"
-              className="text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white dark:hover:bg-gray-700 md:dark:hover:bg-transparent px-3 py-2"
+              className="text-gray-900 rounded-sm hover:bg-gray-100 md:hover:text-white-700 dark:text-white dark:hover:bg-gray-700 px-3 py-2"
             >
               Nova pesquisa
             </Link>
@@ -49,15 +49,16 @@ const Header = () => {
           </div>
         )}
 
-        <div className="flex items-center gap-3 md:order-2">
+        {/* DIREITA: LOGIN / LOGOUT */}
+        <div className="flex items-center gap-3">
           {user ? (
             <div className="flex items-center gap-4">
-              <span className="text-gray-900 dark:text-white font-medium text-sm px-2">
+              <span className="text-gray-900 dark:text-white font-medium text-sm">
                 Créditos: <span className="font-bold">{user.credits}</span>
               </span>
               <a
                 href="/auth/api/logout"
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
                 Sair
               </a>
@@ -65,16 +66,17 @@ const Header = () => {
           ) : (
             <a
               href="/auth/google"
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Logar com Google
             </a>
           )}
 
+          {/* MENU MOBILE */}
           {user && (
             <button
               type="button"
-              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+              className="sm:hidden inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-700"
               onClick={toggleMenu}
               aria-controls="mobile-menu"
               aria-expanded={menuOpen}
@@ -82,10 +84,9 @@ const Header = () => {
               <span className="sr-only">Abrir menu</span>
               <svg
                 className="w-5 h-5"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 17 14"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   stroke="currentColor"
@@ -100,6 +101,7 @@ const Header = () => {
         </div>
       </nav>
 
+      {/* MOBILE MENU */}
       {menuOpen && user && (
         <div className="sm:hidden flex flex-col gap-2 p-4 bg-gray-50 border-t border-gray-200 dark:bg-gray-800 dark:border-gray-700">
           <Link
