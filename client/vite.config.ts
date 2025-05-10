@@ -6,8 +6,13 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
     proxy: {
-      // Redireciona chamadas /auth e /api para o backend (porta 5000)
+      // Redireciona chamadas /auth e /pay para o backend (porta 5000)
       "/auth": {
+        target: "http://localhost:5000",
+        changeOrigin: true,
+        secure: false,
+      },
+      "/pay": {
         target: "http://localhost:5000",
         changeOrigin: true,
         secure: false,

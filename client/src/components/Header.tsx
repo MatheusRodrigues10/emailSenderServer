@@ -21,7 +21,7 @@ const Header = () => {
         </div>
 
         {user && (
-          <div className="hidden sm:flex gap-6 items-center">
+          <div className="hidden sm:flex gap-4 items-center">
             <Link
               to="/"
               className="text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white dark:hover:bg-gray-700 md:dark:hover:bg-transparent px-3 py-2"
@@ -40,17 +40,28 @@ const Header = () => {
             >
               Nova pesquisa
             </Link>
+            <Link
+              to="/payments"
+              className="bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg text-sm px-4 py-2"
+            >
+              Adicionar Créditos
+            </Link>
           </div>
         )}
 
         <div className="flex items-center gap-3 md:order-2">
           {user ? (
-            <a
-              href="/auth/api/logout"
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Sair
-            </a>
+            <div className="flex items-center gap-4">
+              <span className="text-gray-900 dark:text-white font-medium text-sm px-2">
+                Créditos: <span className="font-bold">{user.credits}</span>
+              </span>
+              <a
+                href="/auth/api/logout"
+                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Sair
+              </a>
+            </div>
           ) : (
             <a
               href="/auth/google"
@@ -108,6 +119,12 @@ const Header = () => {
             className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
           >
             Nova pesquisa
+          </Link>
+          <Link
+            to="/payments"
+            className="bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg text-sm px-4 py-2 text-left"
+          >
+            Adicionar Créditos
           </Link>
         </div>
       )}

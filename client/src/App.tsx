@@ -8,6 +8,7 @@ import LoadingScreen from "./components/LoadingScreen";
 import DashBoard from "./pages/Dashboard";
 import Landing from "./pages/Landing";
 import SurveyNew from "./pages/SurveyNew";
+import PaymentsPage from "./pages/PaymentsPage";
 import { fetchUsers } from "./redux/features/authSlice";
 import { AppDispatch, RootState } from "./redux/store";
 
@@ -28,6 +29,7 @@ const App = () => {
         <Route path="/" element={<Landing />} />
         <Route path="/surveys" element={<DashBoard />} />
         <Route path="/surveys/new" element={<SurveyNew />} />
+        <Route path="/payments" element={<PaymentsPage />} />
       </Routes>
     </BrowserRouter>
   );

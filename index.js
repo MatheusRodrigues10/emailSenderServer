@@ -1,5 +1,4 @@
 import express from "express";
-import authRoutes from "./routes/authRoutes.js";
 import mongoose from "mongoose";
 import cookieSession from "cookie-session";
 import passport from "passport";
@@ -10,10 +9,15 @@ import "./services/passport.js";
 //import de variaveis sensiveis
 import keys from "./config/keys.js";
 
+//import de rotas
+import billingRoutes from "./routes/billingRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
+
 //conexão ao mongoDb com moongose
 mongoose.connect(keys.mongoURI);
 
 const app = express();
+app.use(express.json());
 
 //configurar cookies
 app.use(
@@ -25,12 +29,15 @@ app.use(
   })
 );
 
-//inicia o passport, habilita o suporte a sessões persistententes usa express-session
+//inicia o passport e usa o express-session
 app.use(passport.initialize());
 app.use(passport.session());
 
-//usa o middlewere para todas as rotas de autenticação
+//rotas de autenticação
 app.use("/auth", authRoutes);
+
+//rotas de pagamento
+app.use("/pay", billingRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
