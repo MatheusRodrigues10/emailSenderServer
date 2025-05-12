@@ -43,7 +43,9 @@ const __dirname = path.dirname(__filename);
 // arquivos estáticos da build do Vite
 app.use(express.static(path.join(__dirname, "client", "dist")));
 
-// fallback SPA
+/* Criamos uma rota coringa (*) pra sempre mandar o index.html
+Isso garante que o React funcione com rotas, tipo
+/dashboard, /perfil, etc. */
 app.get("*", (req, res) => {
   const indexPath = path.join(__dirname, "client", "dist", "index.html");
   res.sendFile(indexPath);
