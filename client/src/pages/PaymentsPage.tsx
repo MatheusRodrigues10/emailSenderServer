@@ -11,7 +11,6 @@ import {
 } from "@stripe/react-stripe-js";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
-
 import { handleToken } from "../redux/features/authSlice";
 import { AppDispatch } from "../redux/store";
 
@@ -39,7 +38,6 @@ const CheckoutForm = () => {
     if (error) {
       console.error(error);
     } else {
-      console.log("token", paymentMethod.id, amount);
       dispatch(handleToken({ token: paymentMethod.id, amount }));
     }
   };
@@ -47,17 +45,17 @@ const CheckoutForm = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md"
+      className="bg-white border border-gray-200 shadow-md rounded-2xl p-8 w-full max-w-md"
     >
-      <h2 className="text-2xl font-bold text-blue-800 text-center mb-6">
+      <h2 className="text-2xl font-bold text-[#2E2E2E] text-center mb-6">
         Adicionar Créditos
       </h2>
 
       <div className="mb-4">
-        <label className="block text-blue-900 font-medium mb-1">
+        <label className="block text-[#2E2E2E] font-medium mb-1">
           Número do Cartão
         </label>
-        <div className="border border-blue-200 rounded-xl p-3 bg-blue-50">
+        <div className="border border-gray-200 rounded-xl p-3 bg-[#F9FAFB]">
           <CardNumberElement
             options={{
               style: {
@@ -75,10 +73,10 @@ const CheckoutForm = () => {
 
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div>
-          <label className="block text-blue-900 font-medium mb-1">
+          <label className="block text-[#2E2E2E] font-medium mb-1">
             Data de Validade
           </label>
-          <div className="border border-blue-200 rounded-xl p-3 bg-blue-50">
+          <div className="border border-gray-200 rounded-xl p-3 bg-[#F9FAFB]">
             <CardExpiryElement
               options={{
                 style: {
@@ -95,8 +93,8 @@ const CheckoutForm = () => {
         </div>
 
         <div>
-          <label className="block text-blue-900 font-medium mb-1">CVV</label>
-          <div className="border border-blue-200 rounded-xl p-3 bg-blue-50">
+          <label className="block text-[#2E2E2E] font-medium mb-1">CVV</label>
+          <div className="border border-gray-200 rounded-xl p-3 bg-[#F9FAFB]">
             <CardCvcElement
               options={{
                 style: {
@@ -114,25 +112,25 @@ const CheckoutForm = () => {
       </div>
 
       <div className="mb-6">
-        <label className="block text-blue-900 font-medium mb-1">
+        <label className="block text-[#2E2E2E] font-medium mb-1">
           Nome no Cartão
         </label>
         <input
           type="text"
           placeholder="Nome completo"
-          className="w-full border border-blue-200 rounded-xl p-3 bg-blue-50 text-[#1a202c] placeholder-[#90a4ae] focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          className="w-full border border-gray-200 rounded-xl p-3 bg-[#F9FAFB] text-[#1a202c] placeholder-[#90a4ae] focus:ring-2 focus:ring-[#6C9BCF] focus:outline-none"
         />
       </div>
 
       <button
         type="submit"
         disabled={!stripe}
-        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-xl transition"
+        className="w-full bg-[#6C9BCF] hover:bg-[#558ACB] text-white font-semibold py-3 px-4 rounded-xl transition"
       >
         Adicionar 5 Créditos – R$5,00
       </button>
 
-      <p className="text-sm text-blue-600 text-center mt-3">
+      <p className="text-sm text-[#6C9BCF] text-center mt-3">
         Cada crédito permite o envio de 5 e-mails.
       </p>
     </form>
@@ -140,7 +138,7 @@ const CheckoutForm = () => {
 };
 
 const PaymentsPage: React.FC = () => (
-  <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100 px-4">
+  <div className="min-h-screen flex items-center justify-center bg-white px-4">
     <Elements stripe={stripePromise}>
       <CheckoutForm />
     </Elements>

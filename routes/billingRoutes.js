@@ -7,7 +7,7 @@ import requireLogin from "../middlewares/requireLogin.js";
 
 const router = express.Router();
 const stripe = new Stripe(keys.stripeSecretKey);
-const User = mongoose.model("users");
+const User = mongoose.model("User");
 
 router.post("/stripe", requireLogin, async (req, res) => {
   try {

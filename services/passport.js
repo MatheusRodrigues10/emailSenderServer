@@ -6,7 +6,7 @@ import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 //variaveis de ambiente
 import keys from "../config/keys.js";
 
-const User = mongoose.model("users");
+const User = mongoose.model("User");
 
 //envia o id do mongoDb para o cookie
 passport.serializeUser((user, done) => {

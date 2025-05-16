@@ -5,8 +5,9 @@ import passport from "passport";
 import path from "path";
 import { fileURLToPath } from "url";
 
-//inicializa modelo.
+//inicializa os modelos.
 import "./models/User.js";
+import "./models/Survey.js";
 //inicializa o passport
 import "./services/passport.js";
 //import de variáveis sensíveis
@@ -15,6 +16,7 @@ import keys from "./config/keys.js";
 //import de rotas
 import billingRoutes from "./routes/billingRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
+import surveyRoutes from "./routes/surveyRoutes.js";
 
 //conexão ao MongoDB com mongoose
 mongoose.connect(keys.mongoURI);
@@ -35,6 +37,7 @@ app.use(passport.session());
 // rotas da aplicação
 app.use("/auth", authRoutes);
 app.use("/pay", billingRoutes);
+app.use("/survey", surveyRoutes);
 
 // Corrige o __dirname para ambiente Windows (sem barra inicial)
 const __filename = fileURLToPath(import.meta.url);

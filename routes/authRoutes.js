@@ -14,14 +14,14 @@ router.get(
 
 //callback pós autenticcação
 router.get("/google/callback", passport.authenticate("google"), (_, res) => {
-  res.redirect("/surveys");
+  res.redirect(`${keys.CLIENT_URL}/surveys`);
 });
 
 //desloga o usuário
 router.get("/api/logout", (req, res) => {
   // Remove a sessão do usuário
   req.logout();
-  res.redirect("/"); //envia o user pora pogina inicial
+  res.redirect(`${keys.CLIENT_URL}`); //envia o user pora pogina inicial
 });
 
 //rota para teste de requisição
