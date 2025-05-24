@@ -7,6 +7,7 @@ const prodKeys = {
   CLIENT_URL: "",
   stripePublishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
   stripeSecretKey: process.env.STRIPLE_SECRET_KEY,
+  sendGridKey: process.env.SEND_GRID_KEY,
 };
 
 export default prodKeys;
