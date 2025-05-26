@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "./components/Header";
@@ -11,6 +11,9 @@ import SurveyNew from "./pages/SurveyNew";
 import PaymentsPage from "./pages/PaymentsPage";
 import { fetchUsers } from "./redux/features/authSlice";
 import { AppDispatch, RootState } from "./redux/store";
+
+import axios from "axios";
+(window as any).axios = axios;
 
 const App = () => {
   const dispatch = useDispatch<AppDispatch>();

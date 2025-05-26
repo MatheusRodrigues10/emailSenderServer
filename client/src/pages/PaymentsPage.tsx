@@ -131,7 +131,7 @@ const CheckoutForm = () => {
       </button>
 
       <p className="text-sm text-[#6C9BCF] text-center mt-3">
-        Cada crédito permite o envio de 5 e-mails.
+        Cada crédito permite realizar uma pesquisa individual.
       </p>
     </form>
   );

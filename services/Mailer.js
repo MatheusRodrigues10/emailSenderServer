@@ -1,7 +1,6 @@
 import sgMail from "@sendgrid/mail";
 import keys from "../config/keys.js";
 
-//chave da api
 sgMail.setApiKey(keys.sendGridKey);
 
 class Mailer {
@@ -13,17 +12,20 @@ class Mailer {
     this.addClickTracking();
   }
 
+  //transforma em array
   formatAddresses(recipients) {
-    //usando destructuring para pegar apenas email
     return recipients.map(({ email }) => email);
   }
 
   addClickTracking() {
     this.trackingSettings = {
-      //verifica se houve clique no email seja em link ou em texto puro
-      click_tracking: { enable: true, enable_text: true },
-      //verifica se abriu o email
-      open_tracking: { enable: true },
+      click_tracking: {
+        enable: true,
+        enable_text: true,
+      },
+      open_tracking: {
+        enable: true,
+      },
     };
   }
 
@@ -33,12 +35,12 @@ class Mailer {
       from: this.from,
       subject: this.subject,
       html: this.html,
-      trackingSettings: this.trackingSettings,
+      tracking_settings: this.trackingSettings,
     };
 
     try {
-      //TODO lógica de enviar e-mails
-      console.log("aaa");
+      await sgMail.send(msg);
+      console.log("E-mail enviado com sucesso.");
     } catch (error) {
       console.error(
         "Erro ao enviar e-mail:",
