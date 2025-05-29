@@ -14,7 +14,11 @@ type SurveyFormData = {
   recipients: string;
 };
 
-const SurveyForm = () => {
+type Props = {
+  setShowReview: (show: boolean) => void;
+};
+
+const SurveyForm = ({ setShowReview }: Props) => {
   const dispatch = useDispatch<AppDispatch>();
   const surveyData = useSelector((state: RootState) => state.survey);
 
@@ -23,12 +27,12 @@ const SurveyForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<SurveyFormData>({
-    defaultValues: surveyData,
+    defaultValues: surveyData, //popula os inputs
   });
 
   const onSubmit = (data: SurveyFormData) => {
-    console.log(data);
-    // dispatch(setSurveyData(data));
+    dispatch(setSurveyData(data));
+    setShowReview(true);
   };
 
   return (
@@ -92,7 +96,7 @@ const SurveyForm = () => {
         <label className="block text-[#2E2E2E] font-medium mb-1">
           Destinatários
         </label>
-        <input
+        <textarea
           {...register("recipients", {
             required: "Campo obrigatório",
             validate: (value) => {
@@ -101,14 +105,13 @@ const SurveyForm = () => {
             },
           })}
           placeholder="ex: google@gmail.com, facebook@gmail.com"
-          className="w-full border border-gray-200 rounded-xl p-3 bg-[#F9FAFB] text-[#1a202c] placeholder-[#90a4ae] focus:ring-2 focus:ring-[#6C9BCF] focus:outline-none"
+          className="w-full border border-gray-200 rounded-xl p-3 bg-[#F9FAFB] text-[#1a202c] placeholder-[#90a4ae] h-24 resize-none focus:ring-2 focus:ring-[#6C9BCF] focus:outline-none"
         />
-
         <p className="text-sm text-[#6C9BCF] mt-1">
           Separe os e-mails com vírgulas. Ex: user1@gmail.com, user2@gmail.com
         </p>
         {errors.recipients && (
-          <p className="text-sm text-red-600 mt-1">
+          <p className="text-sm text-red-600 mt-1 break-words whitespace-pre-wrap">
             {errors.recipients.message}
           </p>
         )}

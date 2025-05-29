@@ -4,8 +4,8 @@ const emailRegex =
 //validar múltiplos e-mails separados por vírgula
 const validateEmails = (emails: string) => {
   const invalidEmails = emails
-    .split(",")
-    .map((email) => email.trim())
+    .split(",") //retorna um array que separa cada item apos cada virgula
+    .map((email) => email.trim()) //remove espaços em branco de cada item
     .filter((email) => emailRegex.test(email) === false); //pega o e-mail e valida pela expressão
 
   //retorna os e-mails inválidos
@@ -13,7 +13,7 @@ const validateEmails = (emails: string) => {
     return `E-mails inválidos: ${invalidEmails.join(", ")}`;
   }
 
-  return;
+  return; // igual a undefined, no hook-form é equivalente a true
 };
 
 export default validateEmails;
