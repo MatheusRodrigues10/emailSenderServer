@@ -7,7 +7,7 @@ const SurveyNew = () => {
 
   return (
     <div className="px-4 sm:px-0">
-      {/* mostrará a tela de confirmar envio de pesquisa */}
+      {/*exibi a tela de confirmar envio de pesquisa se for true*/}
       {showReview ? (
         <SurveyFormReview setShowReview={setShowReview} />
       ) : (

@@ -1,15 +1,51 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
+import { useSelector, useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "../redux/store";
+import { useNavigate } from "react-router-dom";
+
+import { toast } from "react-toastify";
+
+import { submitSurvey, resetSurvey } from "../redux/features/surveySlice";
 
 type Props = {
   setShowReview: (show: boolean) => void;
 };
 
 const SurveyFormReview = ({ setShowReview }: Props) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+
+  const { user } = useSelector((state: RootState) => state.auth);
   const { surveyTitle, subject, body, recipients } = useSelector(
     (state: RootState) => state.survey
   );
+
+  //envia a pesquisa e atualizado o usuario.
+  const handleSubmit = async () => {
+    if (!user || user.credits < 1) {
+      toast.error("Créditos insuficientes para enviar a pesquisa.");
+      return;
+    }
+
+    try {
+      await dispatch(
+        submitSurvey({
+          surveyTitle,
+          subject,
+          body,
+          recipients,
+        })
+      ).unwrap(); // Verifica sucesso ou erro
+
+      toast.success("Pesquisa enviada com sucesso.");
+
+      dispatch(resetSurvey()); // Limpa os campos do formulário
+
+      setShowReview(false); // Fecha a tela de review após envio
+      navigate("/surveys");
+    } catch (error) {
+      toast.error("Erro ao enviar a pesquisa. Tente novamente.");
+    }
+  };
 
   return (
     <div className="bg-white border border-gray-200 shadow-md rounded-2xl p-8 w-full max-w-2xl mx-auto mt-16">
@@ -70,7 +106,7 @@ const SurveyFormReview = ({ setShowReview }: Props) => {
         </button>
 
         <button
-          onClick={() => alert("Enviar ação ainda não implementada")}
+          onClick={handleSubmit}
           className="bg-[#6C9BCF] hover:bg-[#558ACB] text-white font-semibold py-3 px-6 rounded-xl transition cursor-pointer"
         >
           Enviar Pesquisa

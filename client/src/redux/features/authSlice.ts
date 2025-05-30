@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { IUser } from "../../types/User";
+//retorna os dados do user atualizado/
+import { submitSurvey } from "./surveySlice";
 
 interface AuthState {
   user: IUser | null;
@@ -14,7 +16,6 @@ const initialState: AuthState = {
   loadingMessage: null,
 };
 
-// Busca os dados do usuário atual
 export const fetchUsers = createAsyncThunk<IUser | null>(
   "auth/fetchUsers",
   async () => {
@@ -59,14 +60,15 @@ const authSlice = createSlice({
         state.loadingMessage = null;
         state.user = action.payload;
       })
-
       .addCase(handleToken.rejected, (state) => {
         state.loading = false;
         state.loadingMessage = null;
+      })
+      // integração com o outro redux (survey) retorna user atualizado.
+      .addCase(submitSurvey.fulfilled, (state, action) => {
+        state.user = action.payload;
       });
   },
 });
-
-export const {} = authSlice.actions;
 
 export default authSlice.reducer;

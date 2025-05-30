@@ -12,8 +12,9 @@ import PaymentsPage from "./pages/PaymentsPage";
 import { fetchUsers } from "./redux/features/authSlice";
 import { AppDispatch, RootState } from "./redux/store";
 
-import axios from "axios";
-(window as any).axios = axios;
+//toastify para erros.
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -28,6 +29,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Header />
+      <ToastContainer position="bottom-right" autoClose={4000} />
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/surveys" element={<DashBoard />} />
