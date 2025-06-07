@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { loadStripe } from "@stripe/stripe-js";
 import {
   Elements,
@@ -9,10 +9,13 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 import { handleToken } from "../redux/features/authSlice";
 import { AppDispatch } from "../redux/store";
+
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
 const CheckoutForm = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -37,8 +40,17 @@ const CheckoutForm = () => {
 
     if (error) {
       console.error(error);
+      toast.error(
+        "Erro ao processar o pagamento. Verifique os dados e tente novamente."
+      );
     } else {
-      dispatch(handleToken({ token: paymentMethod.id, amount }));
+      try {
+        await dispatch(handleToken({ token: paymentMethod.id, amount }));
+        toast.success("Pagamento realizado com sucesso! Créditos adicionados.");
+      } catch (err) {
+        console.error(err);
+        toast.error("Erro ao adicionar créditos. Tente novamente mais tarde.");
+      }
     }
   };
 
@@ -125,7 +137,7 @@ const CheckoutForm = () => {
       <button
         type="submit"
         disabled={!stripe}
-        className="w-full bg-[#6C9BCF] hover:bg-[#558ACB] text-white font-semibold py-3 px-4 rounded-xl transition"
+        className="w-full bg-[#6C9BCF] hover:bg-[#558ACB] text-white font-semibold py-3 px-4 rounded-xl transition cursor-pointer"
       >
         Adicionar 5 Créditos – R$5,00
       </button>

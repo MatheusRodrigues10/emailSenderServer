@@ -1,7 +1,7 @@
 import keys from "../../config/keys.js";
 
 // template para pesquisas (e-mail)
-export default (survey) => {
+export default (survey, encodedEmail) => {
   return `
     <html>
       <body style="font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px;">
@@ -11,12 +11,12 @@ export default (survey) => {
           <p style="font-size: 18px; font-weight: bold; color: #222;">${survey.body}</p>
           
           <div style="margin: 30px 0;">
-            <a href="${keys.redirectDomain}/survey/thanks" 
-               style="margin: 0 10px; padding: 12px 24px; background-color: #4CAF50; color: #fff; text-decoration: none; border-radius: 6px; font-weight: bold;">
+            <a href="${keys.redirectDomain}/survey/webhooks/${survey.id}/yes?email=${encodedEmail}" 
+               style="display: inline-block; margin: 10px; padding: 12px 24px; background-color: #28a745; color: white; text-decoration: none; font-size: 16px; border-radius: 6px; transition: background-color 0.3s;">
               Sim
             </a>
-            <a href="${keys.redirectDomain}/survey/thanks" 
-               style="margin: 0 10px; padding: 12px 24px; background-color: #f44336; color: #fff; text-decoration: none; border-radius: 6px; font-weight: bold;">
+            <a href="${keys.redirectDomain}/survey/webhooks/${survey.id}/no?email=${encodedEmail}" 
+               style="display: inline-block; margin: 10px; padding: 12px 24px; background-color: #dc3545; color: white; text-decoration: none; font-size: 16px; border-radius: 6px; transition: background-color 0.3s;">
               Não
             </a>
           </div>
