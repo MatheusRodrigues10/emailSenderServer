@@ -1,32 +1,24 @@
 import express from "express";
 import passport from "passport";
-import keys from "../config/keys.js";
+import * as authController from "../controllers/authController.js";
 
 const router = express.Router();
 
-//rota de autenticação
 router.get(
-  "/google/",
+  "/google",
   passport.authenticate("google", {
-    scope: ["profile", "email"], //escopo para pegar perfil e email
+    scope: ["profile", "email"],
   })
 );
 
-//callback pós autenticcação
-router.get("/google/callback", passport.authenticate("google"), (_, res) => {
-  res.redirect(`${keys.CLIENT_URL}/surveys`);
-});
+router.get(
+  "/google/callback",
+  passport.authenticate("google"),
+  authController.handleGoogleCallback
+);
 
-//desloga o usuário
-router.get("/api/logout", (req, res) => {
-  // Remove a sessão do usuário
-  req.logout();
-  res.redirect(`${keys.CLIENT_URL}`); //envia o user pora pogina inicial
-});
+router.get("/api/logout", authController.logoutUser);
 
-//rota para teste de requisição
-router.get("/api/current_user", (req, res) => {
-  res.send(req.user);
-});
+router.get("/api/current_user", authController.getCurrentUser);
 
 export default router;
