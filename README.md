@@ -140,7 +140,7 @@ VITE_STRIPE_KEY=pk_test_XXXXXXXXXXXXXXXXXXXXXXXX
   * Adicione os redirecionamentos:
 
     * `http://localhost:5000/auth/google/callback` (desenvolvimento)
-    * `https://emailsenderserver.onrender.com/auth/google/callback` (produção)
+    * `seuserver/auth/google/callback` (produção)
 
 * **MongoDB (Atlas)**
 
