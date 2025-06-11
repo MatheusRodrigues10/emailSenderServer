@@ -191,4 +191,3 @@ Projeto de uso acadêmico e educacional. Livre para estudo, modificação e exte
 ## Autor
 
 **Matheus Rodrigues**  
-Desenvolvedor Full Stack em formação  
